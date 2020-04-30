@@ -13077,7 +13077,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="download.png" alt="Markdown Monster icon" style="height: 200px;" align="right"></p>
+<p><img src="pics/download.png" alt="Markdown Monster icon" style="height: 200px;" align="right"></p>
 
 </div>
 </div>
@@ -13085,7 +13085,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h1><p>This notebook belongs to the online EGU2020 display <a href="https://meetingorganizer.copernicus.org/EGU2020/EGU2020-11086.html">EGU2020-11086</a> by Jannis M. Hoch, Dirk Eilander, and Hiroaki Ikeushi.</p>
+<p>This notebook belongs to the online EGU2020 display <a href="https://meetingorganizer.copernicus.org/EGU2020/EGU2020-11086.html">EGU2020-11086</a> by Jannis M. Hoch, Dirk Eilander, and Hiroaki Ikeushi.</p>
 <p>contact details: j.m.hoch@uu.nl</p>
 
 </div>
@@ -13094,67 +13094,10 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Motivation">Motivation<a class="anchor-link" href="#Motivation">&#182;</a></h2><p>There are various models out there that are able to produce flood maps, either for given return perios (such as 1/10, 1/50, 1/100 years etc.) or for a given date. Due to the different model development approaches used, there is an inherent disagreement between simulated flood extent.</p>
-<p>For flood wave propagation and inundation mapping, the numeric schemes implemented play an essential role. While some models have a simple 1D routing scheme, others employ sophisicated 1D-2D schemes. Depending on the local (geographical) properties, one approach may be superior to the other.</p>
-<p>This is often exacerbated by using different boundary conditions. For example, some models require discharge hydrographs at the upstream inlet(s), while others require spatially disaggregated rainfall data.</p>
-<p>Additionally, the spatial resolution used by models differs as well. In case there are post-processing steps to downscale flood maps to a finer spatial resolution, these steps typically differ too and thus introduce an additional source for model disagreement.</p>
-<p>In this work, we aim at disentangling this complexity (a bit at least) and to show how the choice of a model will have direct influence on a) accuracy of the simulated flood extent and b) the resulting number of casualties due to this event.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Background">Background<a class="anchor-link" href="#Background">&#182;</a></h2><p>The presented work is a continuation of the publication in <a href="https://www.nat-hazards-earth-syst-sci.net/19/1723/2019/">NHESS</a>. For further information regarding the underlying computational framework <a href="https://glofrim.readthedocs.io/en/latest/">GLOFRIM</a>, please check the article. In this notebook, we constrain ourselves to the post-modelling analysis how model choice has a direct impact on the casualties of a flood event.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Approach">Approach<a class="anchor-link" href="#Approach">&#182;</a></h2><p>To test how model choice influences outcomes, we used flood maps simulated by three models:</p>
-<ul>
-<li>the global hydrological model PCR-GLOBWB;</li>
-<li>the global routing model CaMa-Flood;</li>
-<li>and the hydrodynamic model Lisflood-FP.</li>
-</ul>
-<p>By means of the <a href="https://glofrim.readthedocs.io/en/latest/">GLOFRIM</a> framework, it was possible to establish a cascade of coupled models.</p>
-<p><img src="coupling.png"
-     alt="coupling"
-     style="float: centre; height:300px" /></p>
-<p>This means, that PCR-GLOBWB output directly forces Ca-Ma-Flood, which in turn forces Lisflood-FP. This has the benefitial consequence that all boundary condtions can be considered to be aligned. One source of model difference down!</p>
-<p>The cascades are:</p>
-<ul>
-<li>PCR-GLOBWB → CaMa-Flood</li>
-<li>PCR-GLOBWB → CaMa-Flood → Lisflood-FP</li>
-</ul>
-<p>The original spatial resolution of the models differs, with Lisflood-FP having the finest spatial resolution (500 m spatial resolution). It was thus necessary to first downscale the output from PCR-GLOBWB and CaMa-Flood. Both models have built-in tools for that and yes, these tools differ as well!</p>
-<p>In a first check, we determine the accuracy of the simulated flood extent (note, this was already down in the above-mentioned NHESS publication). Once we have an estimate how good the models match observations, we continue with overlying the simulated flood extents with population data from the <a href="https://www.worldpop.org/">WorldPOP</a> project. As a result, we obtain the number of casualties for this flood extent.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Case-study">Case study<a class="anchor-link" href="#Case-study">&#182;</a></h3><p>As case study, we chose the Ganges-Brahmaputra basin. We performed coupled calculations for all three models for the period 2004 - 2009.</p>
-<p><img src="study_area.png"
-     alt="study_area"
-     style="float: centre; height:500px" /></p>
-<p>Simulated flood extent was compared for the date 18 August 2007.</p>
-<p>Note that Lisflood-FP did not extend over the entire basin, but covered only the delta region. As such, the analysis limits itself to this region as well.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Notebook-structure">Notebook structure<a class="anchor-link" href="#Notebook-structure">&#182;</a></h2><p>The notebook is structured as follows.</p>
+<h3 id="Notebook-structure">Notebook structure<a class="anchor-link" href="#Notebook-structure">&#182;</a></h3><p>The notebook is structured as follows.</p>
 <ol>
-<li><a href="#packages_and_settings">First</a>, all packages are loaded and settings defined;</li>
+<li>The notebook begins with a brief <a href="#intro">introduction</a> outlying the background, approach, and case study;</li>
+<li><a href="#packages_and_settings">Second</a>, all packages are loaded and settings defined;</li>
 <li>Then, the <a href="#functions">functions</a> required in this notebook are defined;</li>
 <li>The <a href="#data">data</a> is loaded, that is the simulated flood extents, the observed flood extent, and the population data;</li>
 <li>Simulated and observed <a href="#flood_extent">flood extent</a> maps are inspected and the contingency maps are produced;</li>
@@ -13168,7 +13111,55 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Acknowledgments">Acknowledgments<a class="anchor-link" href="#Acknowledgments">&#182;</a></h2><p>Part of the code for calculating the contingency maps is borrowed from Hessel Winsemius. Many thanks!</p>
+<p><a id="intro"></a></p>
+<h1 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">&#182;</a></h1><p>There are various (hydrological and hydrodynamic) models out there that are able to produce flood maps, either for given return perios or for a given date. Due to the different model development approaches used and the way modelling decisions are made <cite data-cite="6222060/HXDBCXUI"></cite>, there is an inherent disagreement between simulated flood extent. A comparison study showed that a set of flood models only agrees for around a third of simulated flood extent <cite data-cite="6222060/BBVBBSUF"></cite>.</p>
+<p>It is clear that, from a flood risk management perspective, there must a thorough understanding of the accuracy and uncertainties of inundation maps produced by models.</p>
+<p>In this work, we aim at disentangling this complexity (a bit at least) and to show how the choice of a model will have direct influence on</p>
+<ul>
+<li>accuracy of the simulated flood extent;</li>
+<li>the resulting number of casualties due to this event.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Background">Background<a class="anchor-link" href="#Background">&#182;</a></h2><p>The presented work is a continuation of the publication in <a href="https://www.nat-hazards-earth-syst-sci.net/19/1723/2019/">NHESS</a>. For further information regarding the underlying computational framework <a href="https://glofrim.readthedocs.io/en/latest/">GLOFRIM</a> <cite data-cite="6222060/JRHZ2JDA"></cite> <cite data-cite="6222060/SWEM2TL4"></cite>, please check the article. In this notebook, we constrain ourselves to the post-modelling analysis how model choice has a direct impact on the casualties of a flood event.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Approach">Approach<a class="anchor-link" href="#Approach">&#182;</a></h2><p>To test how model choice influences outcomes, we used flood maps simulated by three models:</p>
+<ul>
+<li>the global hydrological model PCR-GLOBWB <cite data-cite="6222060/3XYPXIHB"></cite>;</li>
+<li>the global routing model CaMa-Flood <cite data-cite="6222060/BT23YQZR"></cite>;</li>
+<li>and the hydrodynamic model Lisflood-FP <cite data-cite="6222060/N456NDVK"></cite>.</li>
+</ul>
+<p>By means of the <a href="https://glofrim.readthedocs.io/en/latest/">GLOFRIM</a> framework, it was possible to establish a cascade of coupled models.</p>
+<p><img src="pics/coupling.png"
+     alt="coupling"
+     style="float: centre; height:300px" /></p>
+<p>This means, that PCR-GLOBWB output directly forces CaMa-Flood, which in turn forces a (nested) Lisflood-FP models (see picture below). This corresponds with cascade 3 in the above-shown picture. The chosen approach has the benefitial consequence that all boundary condtions can be considered to be aligned. One source of model difference down!</p>
+<p>The original spatial resolution of the models differs, with Lisflood-FP having the finest spatial resolution (500 m spatial resolution). It was thus necessary to first downscale the output from PCR-GLOBWB and CaMa-Flood. Both models have built-in tools for that and yes, these tools differ as well!</p>
+<p>In a first check, we determine the accuracy of the simulated flood extent (note, this was already down in the above-mentioned NHESS publication).</p>
+<p>Once we have an estimate how good the models match observations, we continue with overlying the simulated flood extents with population data from the <a href="https://www.worldpop.org/">WorldPOP</a> project. As a result, we obtain the number of people affected for this flood extent and a first-order idea how model selection influences this estimate.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Case-study">Case study<a class="anchor-link" href="#Case-study">&#182;</a></h3><p>As case study, we chose the Ganges-Brahmaputra basin. We performed coupled calculations for all three models for the period 2004 - 2009.</p>
+<p><img src="pics/study_area.png"
+     alt="study_area"
+     style="float: centre; height:500px" /></p>
+<p>Simulated flood extent was compared for the date 18 August 2007.</p>
 
 </div>
 </div>
@@ -13368,7 +13359,7 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">PCR_fo</span> <span class="o">=</span> <span class="s1">&#39;PCR_clipped_reprojected_boolean.tiff&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">PCR_fo</span> <span class="o">=</span> <span class="s1">&#39;data/PCR_clipped_reprojected_boolean.tiff&#39;</span>
 </pre></div>
 
     </div>
@@ -13394,7 +13385,7 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">LFP_fo</span> <span class="o">=</span> <span class="s1">&#39;LFP_reprojected_boolean.tiff&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">LFP_fo</span> <span class="o">=</span> <span class="s1">&#39;data/LFP_reprojected_boolean.tiff&#39;</span>
 </pre></div>
 
     </div>
@@ -13420,7 +13411,7 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">CMF_fo</span> <span class="o">=</span> <span class="s1">&#39;CMF_clipped_reprojected_boolean.tiff&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">CMF_fo</span> <span class="o">=</span> <span class="s1">&#39;data/CMF_clipped_reprojected_boolean.tiff&#39;</span>
 </pre></div>
 
     </div>
@@ -13469,7 +13460,7 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">OBS_fo</span> <span class="o">=</span> <span class="s1">&#39;MODIS_clipped_boolean.tiff&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">OBS_fo</span> <span class="o">=</span> <span class="s1">&#39;data/MODIS_clipped_boolean.tiff&#39;</span>
 </pre></div>
 
     </div>
@@ -13503,7 +13494,7 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">POP_fo</span> <span class="o">=</span> <span class="s1">&#39;bgd_ppp_2020_resampled.tiff&#39;</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">POP_fo</span> <span class="o">=</span> <span class="s1">&#39;data/bgd_ppp_2020_resampled.tiff&#39;</span>
 </pre></div>
 
     </div>
@@ -13548,6 +13539,8 @@ div#notebook {
 <span class="n">show</span><span class="p">(</span><span class="n">CMF_d</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">)</span>
 <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;CaMa-Flood&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;out/flood_extents.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13633,7 +13626,8 @@ div#notebook {
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Critical success index: </span><span class="si">{:f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">csi</span><span class="p">))</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
 
-
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;out/contingency_maps.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+    
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 
@@ -13692,8 +13686,8 @@ Critical success index: 0.250403
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Simulating inundation maps can benefit greatly from adding 2-D hydrodynamic floodplain flow computations. Validating the downscaled inundation maps from PCR-GLOBWB and PCR-GLOBWB → CaMa-Flood with the modelled results of PCR-GLOBWB → CaMa-Flood → Lisflood-FP shows significant deviations between model set-ups. In fact, results insinuate that acceptable representation of inundation patterns as expressed by the CSI can only be achieved by also accounting for floodplain flow and discharge through side channels.</p>
-<p>The differences in hit rate largely result from simulated inundations along smaller water bodies, especially compared to PCR-GLOBWB → CaMa-Flood, and from simulating the extent across the entire river floodplain, which is particularly not the case for PCR-GLOBWB. It is for those areas, which may not necessarily be directly adjacent to the main river stem, that downscaling procedures based on volume or water depth distribution curves may not suffice to represent the actual locally relevant flood-triggering processes, leading to a low hit rate.</p>
+<p>It shows that simulating inundation maps can benefit greatly from adding 2D hydrodynamic floodplain flow computations. Validating the downscaled inundation maps from PCR-GLOBWB and CaMa-Flood with the modelled results of Lisflood-FP shows significant deviations. In fact, results insinuate that acceptable representation of inundation patterns as expressed by the CSI can only be achieved by also accounting for floodplain flow and discharge through side channels.</p>
+<p>The differences in HR largely result from simulated inundations along smaller water bodies, especially compared to CaMa-Flood, and from simulating the extent across the entire river floodplain, which is particularly not the case for PCR-GLOBWB. It is for those areas, which may not necessarily be directly adjacent to the main river stem, that downscaling procedures based on volume or water depth distribution curves may not suffice to represent the actual locally relevant flood-triggering processes, leading to a low HR.</p>
 
 </div>
 </div>
@@ -13718,6 +13712,8 @@ Critical success index: 0.250403
 <span class="n">img</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">plot_image</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Paired&#39;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">1200.</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="p">(</span><span class="n">POP_d</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">POP_d</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">POP_d</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">POP_d</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;WorldPOP population data&#39;</span><span class="p">);</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;out/population_data.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13750,8 +13746,9 @@ Critical success index: 0.250403
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Casualties">Casualties<a class="anchor-link" href="#Casualties">&#182;</a></h2><p>To assess the impact how the differences in simulated flood extent impact the number of casulaties in this flood event.</p>
-<p>To that end, we first mask all cells with negative values (often the nodata values) with zeros to be able to perform multiplications.</p>
+<h2 id="Casualties">Casualties<a class="anchor-link" href="#Casualties">&#182;</a></h2><p>To assess the impact how the differences in simulated flood extent impact the number of casulaties in this flood event. This is done in a very simple first-order approach, where we overlay inundation maps with population data.</p>
+<p>Note here that this of couse not a realistic value and does not say anyting about actual flood risk in the region!!!</p>
+<p>First, we mask all cells with negative values (often the nodata values) with zeros to obtain sensible results from the multiplications.</p>
 
 </div>
 </div>
@@ -13773,7 +13770,6 @@ Critical success index: 0.250403
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We can now compute the number of people affected by the inundation event by multiplying the boolean map of the observations with the number of people per cell. This would give us a benchmark value to compare the other values with.</p>
-<p>Note here that this of couse not a realistic value and does not say anyting about actual flood risk in the region!!!</p>
 
 </div>
 </div>
@@ -13851,6 +13847,8 @@ Critical success index: 0.250403
     
     <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
 
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;out/people_affected.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+    
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
 
@@ -13905,7 +13903,8 @@ People affected: 75136.250000
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>We see that the results obtained with the downscaled PCR-GLOBWB model come closest to our benchmark value. This is interesting, because it is not the model performing best in the contingency analysis!</p>
+<p>We see that the results obtained with the downscaled PCR-GLOBWB model come closest to our benchmark value. This is interesting, because it is not the model performing best in the contingency analysis in terms of CSI!</p>
+<p>Also if the FAR and HR of PCR-GLOBWB is compared with those of the other models, we cannot find a clear connection between the contingency analysis and the number of people affected. This may be because those funtions are determined for the entire study area, whereas the number of people affected is very much defined by model accuracy for a limited region.</p>
 
 </div>
 </div>
@@ -13916,7 +13915,9 @@ People affected: 75136.250000
 <p><a id="conclusion"></a></p>
 <h1 id="Conclusion">Conclusion<a class="anchor-link" href="#Conclusion">&#182;</a></h1><p>This small analysis shows us that the model choice has a great influence on not only flood extent accuracy, but also on the number of people affected.</p>
 <p>Such a finding is particularly relevant for flood management plans and flood risk assessments, which often rely heavily on model output. It is clear that there is not this one model outperforming all others, but that some model properties may be more relevant is certain regions than in others.</p>
-<p>Besides, the results obtaind lead to questions on how to actually validate flood models. Modelled flood extent is commonly used for validating and calibrating models. But in this case, if we had chosen the model with the most accurate output (expressed as highest CSI), we would have stongly overpredicted the number of people affected compared to the benchmark value.</p>
+<p>With a large ensemble of flood models available, this work highlights the need for more structured flood model inter-comparison frameworks <cite data-cite="6222060/WE46DM4F"></cite>.</p>
+<p>The results obtaind may lead to questions on how to actually validate flood models. Modelled flood extent is commonly used for validating and calibrating models. But in this case, if we had chosen the model with the most accurate output (expressed as highest CSI), we would have stongly overpredicted the number of people affected compared to the benchmark value.</p>
+<p>And while it remains very important to validate and calibrate flood models over large areas and entire flood events, there may also be the case for additional procedures focussing more on correctly representing flood losses - even if the overall accuracy may be reduced.</p>
 <p>What do you think?</p>
 
 </div>
@@ -13925,7 +13926,31 @@ People affected: 75136.250000
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="license.png" alt="Markdown Monster icon" style="height: 50px;" align="right"></p>
+<h2 id="Code">Code<a class="anchor-link" href="#Code">&#182;</a></h2><p>The GLOFRIM code used for producing the inundation maps can be found <a href="https://doi.org/10.5281/zenodo.3364388">here</a>.</p>
+<p>This notebook and all underlying data is hosted on <a href="https://github.com/JannisHoch/shareEGU20">GitHub</a> and ready to be forked!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Acknowledgments">Acknowledgments<a class="anchor-link" href="#Acknowledgments">&#182;</a></h2><p>Part of the code for calculating the contingency maps is borrowed from Hessel Winsemius. Many thanks!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="References">References<a class="anchor-link" href="#References">&#182;</a></h1><div class="cite2c-biblio"></div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><div class="cite2c-biblio"></div><img src="pics/license.png" alt="Markdown Monster icon" style="height: 50px;" align="right"></p>
 
 </div>
 </div>
