@@ -93,6 +93,14 @@ rcParams['font.sans-serif'] = ['Arial']
 matplotlib.rc('font', **font)
 
 
+# In[ ]:
+
+
+if os.path.exists('out'):
+    pass
+else: os.mkdir('out')
+
+
 # <a id="functions"></a>
 # # Functions
 # 
@@ -236,8 +244,9 @@ CMF_d = rio.open(CMF_fo)
 
 
 flood_maps = {'PCR-GLOBWB':PCR_d, 
+              'CaMa-Flood':CMF_d,
               'Lisflood-FP':LFP_d, 
-              'CaMa-Flood':CMF_d}
+              }
 
 
 # ## Observed extent
@@ -285,10 +294,10 @@ show(OBS_d, ax=axes[0,0], cmap='Oranges')
 axes[0,0].set_title('Observed extent')
 show(PCR_d, ax=axes[0,1], cmap='Blues')
 axes[0,1].set_title('PCR-GLOBWB')
-show(LFP_d, ax=axes[1,0], cmap='Blues')
-axes[1,0].set_title('Lisflood-FP')
-show(CMF_d, ax=axes[1,1], cmap='Blues')
-axes[1,1].set_title('CaMa-Flood')
+show(CMF_d, ax=axes[1,0], cmap='Blues')
+axes[1,0].set_title('CaMa-Flood')
+axes[1,1].set_title('Lisflood-FP')
+show(LFP_d, ax=axes[1,1], cmap='Blues')
 plt.tight_layout()
 
 plt.savefig('out/flood_extents.png', dpi=300)
