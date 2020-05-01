@@ -22,5 +22,6 @@ The main code is in the ipynb-notebook which upon execution is converted to a ht
 For questions/remarks/etc, please contact me via j.m.hoch@uu.nl.
 
 # note
-when running the ipynb-notebook via the sh-file, the converted html-file does not render the citations and references.
-they are only visible in the ipynb-notebook itself.
+when running the ipynb-notebook via the sh-file, the converted html-file does not render any citations and references.
+this is because the cite2c extension used does not support export yet.
+to get the full experience, it may be necessary to open the notebook from command line (not tested yet).
