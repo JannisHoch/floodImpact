@@ -15,22 +15,16 @@ In this work, we aim at disentangling this complexity (a bit at least) and to sh
 1. accuracy of the simulated flood extent;
 1. the resulting number of people exposed due to this event.
 
-## Content
-
-The code goes step-by-step through the process of 
-
-1. assessing accuracy of simulated flood extent;
-1. calculating the differing impact on the number of people affected.
-
 ## Execution
 
-The main code is in the ipynb-notebook which upon execution is converted to a html-file.
+The main code is in the ipynb-notebook.
+
+You can either go trough the notebook yourself cell by cell, or run the shell-script to run the entire notebook and convert the result to a html-file.
 
 ## Contact
 
 For questions/remarks/etc, please contact me via j.m.hoch@uu.nl.
 
 # note
-when running the ipynb-notebook via the sh-file, the converted html-file does not render any citations and references.
-this is because the cite2c extension used does not support export yet.
-to get the full experience, it may be necessary to open the notebook from command line (not tested yet).
+when opening the notebook or running it via the sh-file, citations and references are not shown.
+this is because the cite2c extension used works only for the account which created the notebook and citations/references are not exportable
