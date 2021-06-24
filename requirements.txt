@@ -1,7 +1,7 @@
 rasterio>=1.1
 xarray>=0.18
 pandas>=1.2
-osgeo
+gdal>=3.3.0
 numpy>=1.20
 setuptools>=50.0
 ipython

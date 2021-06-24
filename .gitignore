@@ -129,4 +129,5 @@ dmypy.json
 .pyre/
 
 # output folder
-pics/
+/pics/
+/out/
