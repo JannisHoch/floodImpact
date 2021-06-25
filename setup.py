@@ -32,7 +32,7 @@ setup(
     ],
     description="Applying network modelling to hydrology.",
     entry_points={
-        'console_scripts': ['floodimpact=flood_impact.scripts.resample_tiff:cli'],
+        'console_scripts': ['floodimpact=flood_impact.scripts.click_functions:cli'],
     },
     install_requires=requirements,
     license="MIT",

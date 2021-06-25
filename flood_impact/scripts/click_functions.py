@@ -1,18 +1,22 @@
 from osgeo import gdal
+import flood_impact
 import click
 import rasterio
 from rasterio.plot import show
+import Image
 import os
 
 @click.group()
 @click.option('--debug/--no-debug', default=False)
+@click.option('--version/--no-version', default=False)
 @click.pass_context
 
-def cli(ctx, debug):
+def cli(ctx, debug, version):
 
     ctx.ensure_object(dict)
     ctx.obj['DEBUG'] = debug
     if debug: click.echo("Debug mode is on")
+    if version: click.echo("flood_impact version {} used".format(flood_impact.__version__))
 
 @cli.command()
 @click.argument('dr', type=str)
@@ -56,3 +60,31 @@ def resample_tiff(ctx, dr, sr, output_name, plot):
         show(source_ds.read(), transform=source_ds.transform)
         out = rasterio.open(output_name)
         show(out.read(), transform=out.transform)
+
+@cli.command()
+@click.argument('obs', type=str)
+@click.argument('sim', type=str)
+@click.option('-ot', '--observation-threshold', default=0.5)
+@click.option('-st', '--simulation-threshold', default=0)
+@click.option('-out', '--output-directory', type=click.Path(), help='path to output directory', default='./OUT')
+@click.option('--plot/--no-plot', default=False, help='show plot of source and warped file')
+@click.pass_context
+
+def get_contingency(ctx, obs, sim, observation_threshold, simulation_threshold, output_directory):  
+
+    click.echo('reading observed flood extent from {}'.format(obs))
+    bench_d = rasterio.open(obs)
+    click.echo('reading simualted flood extent from {}'.format(sim))
+    model_d = rasterio.open(sim)
+    
+    click.echo('computing contingency data')
+    hr, far, csi, cont_arr = flood_impact.contingency(bench_d, model_d, observation_threshold, simulation_threshold)
+
+    if ctx.obj['DEBUG']:
+        click.echo('hit rate is {}'.format(hr))
+        click.echo('false alarm ratio is {}'.format(far))
+        click.echo('critical succes index is {}'.format(csi))
+
+    click.echo('saving contingeny map to {}'.format(os.path.join(output_directory, 'contingency_map.tif')))
+    im = Image.fromarray(cont_arr)
+    im.save(os.path.join(output_directory, 'contingency_map.tif'))
