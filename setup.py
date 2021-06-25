@@ -32,7 +32,7 @@ setup(
     ],
     description="Applying network modelling to hydrology.",
     entry_points={
-        'console_scripts': [],
+        'console_scripts': ['floodimpact=flood_impact.scripts.resample_tiff:cli'],
     },
     install_requires=requirements,
     license="MIT",
@@ -40,7 +40,7 @@ setup(
     include_package_data=True,
     keywords='flood impact, population exposure, flood risk',
     name='floodimpact',
-    packages=find_packages(include=['floodimpact', 'floodimpact.*'], exclude=['data', 'pics,']),
+    packages=find_packages(include=['flood_impact', 'flood_impact.*'], exclude=['data', 'pics,']),
     setup_requires=setup_requirements,
     test_suite='tests',
     tests_require=test_requirements,
