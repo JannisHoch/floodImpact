@@ -17,6 +17,3 @@ dependencies:
  - click>=7.1
  - geopandas>=0.9
  - seaborn
- - pip
- - pip:
-    - Image

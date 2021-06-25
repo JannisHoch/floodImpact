@@ -3,7 +3,7 @@ import flood_impact
 import click
 import rasterio
 from rasterio.plot import show
-import Image
+from PIL import Image
 import os
 
 @click.group()
