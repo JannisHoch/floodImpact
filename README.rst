@@ -9,14 +9,14 @@ installation
 .. code-block:: console
 
     # clone from GitHub
-    $ git clone https://github.com/JannisHoch/hydro-net.git
+    $ git clone https://github.com/JannisHoch/floodimpact.git
 
-    # cd to folder with hydro-net code
-    $ cd hydro_net/dir
+    # cd to folder with floodimpact code
+    $ cd path/to/floodimpact
 
     # create and activate conda environment
     $ conda env create -f environment.yml
-    $ conda activate hydro_net
+    $ conda activate flood_impact
 
     # install package
     $ pip install -e .
