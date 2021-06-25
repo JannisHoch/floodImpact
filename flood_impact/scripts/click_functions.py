@@ -27,6 +27,8 @@ def cli(ctx, debug, version):
 
 def resample_tiff(ctx, dr, sr, output_name, plot):  
     """Command line script resampling a tiff-file (DR) to the spatial extent and spatial resolution of another tiff-file (SR).
+
+    Returns a resampled tiff-file.
     
     DR: file that will be resampled.
 
@@ -70,7 +72,16 @@ def resample_tiff(ctx, dr, sr, output_name, plot):
 @click.option('--plot/--no-plot', default=False, help='show plot of source and warped file')
 @click.pass_context
 
-def get_contingency(ctx, obs, sim, observation_threshold, simulation_threshold, output_directory):  
+def get_contingency(ctx, obs, sim, observation_threshold, simulation_threshold, output_directory, plot): 
+    """"Computes contingency data computed from observed and simulated flood extent.
+    
+    Returns hit rate, false alarm ratio, and critical succes index. Also a tiff-file with contingency map.
+    
+    OBS: path to observed flood extent. 
+
+    SIM: path to simualted flood extent.
+
+    """ 
 
     click.echo('reading observed flood extent from {}'.format(obs))
     bench_d = rasterio.open(obs)
@@ -78,12 +89,15 @@ def get_contingency(ctx, obs, sim, observation_threshold, simulation_threshold, 
     model_d = rasterio.open(sim)
     
     click.echo('computing contingency data')
-    hr, far, csi, cont_arr = flood_impact.contingency(bench_d, model_d, observation_threshold, simulation_threshold)
+    hr, far, csi, cont_arr = flood_impact.contingency.calc_contingency(bench_d, model_d, observation_threshold, simulation_threshold)
 
     if ctx.obj['DEBUG']:
-        click.echo('hit rate is {}'.format(hr))
-        click.echo('false alarm ratio is {}'.format(far))
-        click.echo('critical succes index is {}'.format(csi))
+        click.echo('hit rate is {:0.2f}'.format(hr))
+        click.echo('false alarm ratio is {:0.2f}'.format(far))
+        click.echo('critical succes index is {:0.2f}'.format(csi))
+
+    if plot:
+        show(cont_arr)
 
     click.echo('saving contingeny map to {}'.format(os.path.join(output_directory, 'contingency_map.tif')))
     im = Image.fromarray(cont_arr)

@@ -48,7 +48,7 @@ def contingency_map(array1, array2, threshold1=0., threshold2=0.):
 
     return array1_thres, array2_thres, contingency
 
-def contingency(bench_d, model_d, bench_thres, model_thres):
+def calc_contingency(bench_d, model_d, bench_thres, model_thres):
     """
     determines hit rate, false alarm ratio, critical success index, and contingency map for a given combination of simulated and observed flood extent.
     """
